@@ -7,6 +7,7 @@ import { useCartStore } from "@/store";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { IoTrashOutline } from "react-icons/io5";
 
 export const ProductsInCart = () => {
   const [loaded, setLoaded] = useState(false);
@@ -51,15 +52,23 @@ export const ProductsInCart = () => {
                 href = {`/product/${product.slug}`}>
                 <p> {`${product.size} - ${product.title}`} </p>
               </Link>
-              <p> {product.price} </p>
-              <QuantitySelector
-                quantity={product.quantity} 
-                onQuantityChanged={quantity => updateProductQuantity(product,quantity)}              />
-              <button 
-                className="underline mt-3"
-                onClick={() => removePRoduct(product)}>
-                Remove
-              </button>
+              <p> {product.price} </p>             
+
+              <div className="flex">
+                <QuantitySelector
+                  quantity={product.quantity} 
+                  onQuantityChanged={quantity => updateProductQuantity(product,quantity)}
+                />
+                <button
+                  title="Remove"
+                  className="ml-7"
+                  onClick={() => removePRoduct(product)}
+                >
+                  <IoTrashOutline
+                    size={30}                  
+                  />
+                </button>
+              </div>
             </div>
           </div>
         ))
