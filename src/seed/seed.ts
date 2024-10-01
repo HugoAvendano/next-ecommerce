@@ -26,13 +26,13 @@ type ValidTypes = 'shirts'|'pants'|'hoodies'|'hats';
 interface SeedData {
     users: SeedUser[];
     categories: string[];
-    products: SeedProduct[];
+    products: SeedProduct[];    
 }
 
 
 
 
-export const initialData: SeedData = {
+export const initialData: SeedData = {    
     users: [
         {
             email: 'hugoavendano2014@gmail.com',

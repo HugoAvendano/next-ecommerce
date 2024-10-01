@@ -9,7 +9,7 @@ export default NextAuth(authConfig).auth;
 export async function middleware(req: NextRequest) {
   const token = await getToken({ req, secret: process.env.AUTH_SECRET!});
   console.log(token);
-  debugger;
+  
   // Verifica si el usuario está autenticado
   if (!token) {
     // Si no está autenticado, redirige a la página de inicio de sesión

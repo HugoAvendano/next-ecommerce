@@ -1,15 +1,13 @@
 'use client'
 
 
-import { authenticate, login, registerUser } from "@/actions";
+import { login, registerUser } from "@/actions";
 import InputPassword from "@/components/ui/login/InputPassword";
 import { yupResolver } from "@hookform/resolvers/yup";
 import clsx from "clsx";
-import email from "next-auth/providers/email";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FieldValues, SubmitHandler, useForm, useFormState } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 type FormInputs = {
