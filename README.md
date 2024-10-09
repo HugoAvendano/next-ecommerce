@@ -8,7 +8,8 @@
 4. Instalacion de dependencias ```npm install```
 5. Levantar la base de datos ```docker compose up -d```
 6. Correr las migraciones de Prisma ```npx prisma migrate dev```
-7. Ejecutar seed ```npm run seed```
-8. Levantar proyector en local server ```npm run dev```
+7. Limpiar LocalStorage del navegador
+8. Ejecutar seed ```npm run seed```
+9. Levantar proyector en local server ```npm run dev```
 
 # Ambiente produccion

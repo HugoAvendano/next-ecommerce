@@ -8,7 +8,8 @@ interface State {
   addProductToCart: (product: CartProduct) => void;
   updateProductQuantity: (product: CartProduct, quantity: number) => void;
   removeProduct: (product: CartProduct) => void;
-  getSummaryInformation: () => SummaryInformation
+  getSummaryInformation: () => SummaryInformation;
+  clearCart: () => void
 }
 
 export const useCartStore = create<State>()(
@@ -17,9 +18,9 @@ export const useCartStore = create<State>()(
       cart: [],
 
       // Methods
-      getTotalItems: () =>{
+      getTotalItems: () => {
         const { cart } = get();
-        return cart.reduce((total, item)=> total + item.quantity , 0);
+        return cart.reduce((total, item) => total + item.quantity, 0);
       },
 
       addProductToCart: (product: CartProduct) => {
@@ -50,8 +51,8 @@ export const useCartStore = create<State>()(
 
       },
 
-      updateProductQuantity: (product: CartProduct, quantity: number) =>{
-        const {cart} = get();
+      updateProductQuantity: (product: CartProduct, quantity: number) => {
+        const { cart } = get();
         const updatedCart = cart.map((item) => {
           if (item.id === product.id && item.size === product.size) {
             return { ...item, quantity: quantity }
@@ -72,22 +73,26 @@ export const useCartStore = create<State>()(
         set({ cart: updatedCart })
 
       },
-      getSummaryInformation: () =>{
+      getSummaryInformation: () => {
         const { cart } = get();
 
         const subTotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
-        const cantItemsCart = cart.reduce((total,item)=> total + item.quantity ,0);
+        const cantItemsCart = cart.reduce((total, item) => total + item.quantity, 0);
 
         const tax = subTotal * 0.15;
         const total = subTotal + tax;
 
         return {
-          subTotal, 
-          tax, 
-          total, 
+          subTotal,
+          tax,
+          total,
           cantItemsCart
         }
+      },
+      clearCart: () => {
+        set({ cart: [] })
       }
+
 
     })
     , {

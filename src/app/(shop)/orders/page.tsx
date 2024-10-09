@@ -1,11 +1,29 @@
 
-// https://tailwindcomponents.com/component/hoverable-table
+export const revalidate = 0;
+
+import { getOrdersByUser } from '@/actions';
 import { Title } from '@/components';
+import clsx from 'clsx';
 
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { IoCardOutline } from 'react-icons/io5';
 
-export default function OrdersPage() {
+
+
+
+export default async function OrdersPage() {
+
+  const resp = await getOrdersByUser();
+
+  if(!resp?.ok){
+    redirect('/auth/login');
+  }
+
+  const orders = resp!.orders;
+
+
+
   return (
     <>
       <Title title="Orders" />
@@ -18,57 +36,64 @@ export default function OrdersPage() {
                 #ID
               </th>
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Nombre completo
+                Date
               </th>
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Estado
+                Name
               </th>
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Opciones
+                State
+              </th>
+              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Options
               </th>
             </tr>
           </thead>
           <tbody>
 
-            <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+            {
+              orders!.map((order) => (
 
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                Mark
-              </td>
-              <td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                <tr key={order.id} className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
 
-                <IoCardOutline className="text-green-800" />
-                <span className='mx-2 text-green-800'>Pagada</span>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.id.split('-')[0]}</td>
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    {order.createdAt.toDateString()}
+                  </td>
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    {`${order.OrderAddress!.name} ${order.OrderAddress!.lastname} `}
+                  </td>
+                  <td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
 
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 ">
-                <Link href="/orders/123" className="hover:underline">
-                  Ver orden
-                </Link>
-              </td>
+                    <IoCardOutline color={order.isPaid ? 'Green' : 'Red'} /* className={
+                      
+                      
+                    } */ />
+                    <span className={
+                      clsx(
+                        'text-red-500',
+                        {
+                          'text-green-700': order.isPaid
+                        }
 
-            </tr>
+                      )
+                    }>{order.isPaid ? 'Approved' : 'Pending'}</span>
 
-            <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                  </td>
+                  <td className="text-sm text-gray-900 font-light px-6 ">
+                    <Link href={`/orders/${order.id}`} className="hover:underline">
+                      Ver orden
+                    </Link>
+                  </td>
 
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                Mark
-              </td>
-              <td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                </tr>
 
-                <IoCardOutline className="text-red-800" />
-                <span className='mx-2 text-red-800'>No Pagada</span>
+              ))
 
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 ">
-                <Link href="/orders/123" className="hover:underline">
-                  Ver orden
-                </Link>
-              </td>
 
-            </tr>
+            }
+
+
 
           </tbody>
         </table>

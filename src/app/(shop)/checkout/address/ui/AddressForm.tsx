@@ -69,13 +69,12 @@ export default function AddressForm({ countries, userStoreAddress = {} } : Props
  
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {   
-    setAddress(data);
-
-    const { remeberAdrress, ...restAddress } = data
+    
+    const { remeberAdrress, ...restAddress } = data;
+    setAddress(restAddress);
 
     if (remeberAdrress){
-      const newAddress = await saveUserAddress(restAddress,session!.user.id)
-      console.log(newAddress)
+      const newAddress = await saveUserAddress(restAddress,session!.user.id)      
     }else {
       await deleteUserAddress(session!.user.id);
     }

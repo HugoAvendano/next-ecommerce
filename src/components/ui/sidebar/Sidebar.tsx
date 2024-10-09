@@ -13,7 +13,7 @@ export const Sidebar = () => {
   const closeMenu = useUIStore(state => state.closeSideMenu);
 
   const { data: session } = useSession();
-  console.log(session);
+  
   const isAuthenticated = !!session?.user;
   const isAdmin = isAuthenticated && session.user.role === 'admin';
 
@@ -88,6 +88,7 @@ export const Sidebar = () => {
             <Link
               href="/orders"
               className="flex items-center mt-3 p-2 hover:bg-gray-100 rounded transition-all"
+              onClick={() => closeMenu()}
             >
               <IoTicketOutline size={25} />
               <span className="ml-3 text-sm font-semibold">Orders</span>

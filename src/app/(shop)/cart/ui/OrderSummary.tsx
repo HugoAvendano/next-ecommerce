@@ -10,6 +10,7 @@ export const OrderSummary = () => {
   const router = useRouter();
   const [loaded, setLoaded] = useState(false);
   const {cantItemsCart,subTotal,tax,total} = useCartStore(state => state.getSummaryInformation());
+  
 
   useEffect(() => {
     setLoaded(true);
