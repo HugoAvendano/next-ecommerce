@@ -13,6 +13,8 @@ import { getUserAddress } from './address/get-user-address';
 import { placeOrder } from './order/place-order';
 import { getOrderById } from './order/get-order-by-id'
 import { getOrdersByUser } from './order/get-orders-by-user';
+import { setTransctionId } from './payments/set-transaction-id';
+import { paypalCheckPaymet} from './payments/paypal-check-payments';
 
 export {
   authenticate,
@@ -28,7 +30,9 @@ export {
   getUserAddress,
   placeOrder,
   getOrderById,
-  getOrdersByUser
+  getOrdersByUser,
+  setTransctionId,
+  paypalCheckPaymet
 }
 
 

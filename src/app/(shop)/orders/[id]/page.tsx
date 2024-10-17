@@ -1,13 +1,13 @@
 
 
-import { Title } from "@/components";
+import { PayPalButton, Title } from "@/components";
 import { initialData } from "@/seed/seed";
 import clsx from "clsx";
 import Image from "next/image";
 import { IoCardOutline } from "react-icons/io5";
 import { getOrderById } from "@/actions";
 import { currencyFormatter } from '../../../../utils/currencyFormatter';
-import { CardStatus } from "./ui/CardStatus";
+import { OrderStatus } from "./ui/OrderStatus";
 import { redirect } from "next/navigation";
 
 
@@ -43,7 +43,7 @@ export default async function OrdersByIdPage({ params }: Props) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
           {/* Cart */}
           <div className="flex flex-col mt-5">
-            <CardStatus isPaid = {order!.isPaid} />
+            <OrderStatus isPaid = {order!.isPaid} />
 
             {/* Items */}
             {
@@ -104,7 +104,19 @@ export default async function OrdersByIdPage({ params }: Props) {
 
             </div>
 
-            <CardStatus isPaid={order!.isPaid} />
+            {
+              order!.isPaid ?
+                (
+                  <OrderStatus isPaid={order!.isPaid} />
+                  
+                ):
+                (
+                  <PayPalButton 
+                  orderId={order!.id} 
+                  amount={order!.total} 
+                  />
+                )
+            }
 
 
           </div>

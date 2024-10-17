@@ -5,7 +5,7 @@ interface Props {
   isPaid: boolean
 }
 
-export const CardStatus = ({ isPaid }: Props) => {
+export const OrderStatus = ({ isPaid }: Props) => {
   return (
     <div className="mt-5 mb-2 w-full">
       <div className={
