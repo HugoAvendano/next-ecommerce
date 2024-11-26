@@ -14,6 +14,7 @@ import 'swiper/css/thumbs';
 import './slideshow.css';
 import { useState } from 'react';
 import Image from 'next/image';
+import { ProductImage } from '../product-image/ProductImage';
 
 interface Props {
   images?: string[],
@@ -44,18 +45,34 @@ export const ProductSlideshow = ({ images = [], title = '', className } : Props)
         className="mySwiper2"
       >
         {
-          images.map((image) => (
+          images.length === 0 ?
+          (
+            
+              <SwiperSlide >
+                <ProductImage
+                  width={500}
+                  height={500}
+                  alt={title}                               
+                  className="rounded-lg object-fill"
+                  /* priority={true} */
+                />
+              </SwiperSlide>
+            
+          ) :
+
+          (images.map((image) => (
             <SwiperSlide key={image}>
-              <Image
+              <ProductImage
                 width={500}
                 height={500}
                 alt={title}
-                src={`/products/${image}`}             
+                src={image}             
                 className="rounded-lg object-fill"
                 /* priority={true} */
               />
             </SwiperSlide>
-          ))
+          )))
+
         }
       </Swiper>
       <Swiper
@@ -68,17 +85,33 @@ export const ProductSlideshow = ({ images = [], title = '', className } : Props)
         className="mySwiper"
       >
         {
-          images.map((image, index) => (
-            <SwiperSlide key={index}>
-              <Image
+          images.length === 0 ?
+          (
+            
+              <SwiperSlide >
+                <ProductImage
+                  width={500}
+                  height={500}
+                  alt={title}                               
+                  className="rounded-lg object-fill"                  
+                />
+              </SwiperSlide>
+            
+          ) :
+
+          (images.map((image) => (
+            <SwiperSlide key={image}>
+              <ProductImage
                 width={500}
                 height={500}
                 alt={title}
-                src={`/products/${image}`}             
+                src={image}                      
                 className="rounded-lg object-fill"
+                
               />
             </SwiperSlide>
-          ))
+          )))
+
         }
       </Swiper>
     </div>

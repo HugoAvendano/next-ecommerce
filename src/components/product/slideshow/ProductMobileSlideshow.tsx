@@ -11,6 +11,7 @@ import 'swiper/css/pagination';
 
 import './slideshow.css';
 import Image from 'next/image';
+import { ProductImage } from '../product-image/ProductImage';
 
 interface Props {
   images?: string[],
@@ -36,17 +37,31 @@ export const ProductMobileSlideshow = ({ images = [], title = '', className } : 
         className="mySwiper2"
       >
         {
-          images.map((image) => (
-            <SwiperSlide key={image}>
-              <Image
-                width={600}
-                height={500}
-                alt={title}
-                src={`/products/${image}`}             
-                className="object-fill"                
-              />
-            </SwiperSlide>
-          ))
+          images.length === 0 ?
+            (
+              <SwiperSlide>
+                  <ProductImage
+                    width={600}
+                    height={500}
+                    alt={title}                                       
+                    className="object-fill"                
+                  />
+                </SwiperSlide>
+            ) :
+
+            (
+              images.map((image) => (
+                <SwiperSlide key={image}>
+                  <ProductImage
+                    width={600}
+                    height={500}
+                    alt={title}
+                    src={`/products/${image}`}             
+                    className="object-fill"                
+                  />
+                </SwiperSlide>
+              ))
+            )
         }
       </Swiper>      
     </div>

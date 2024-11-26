@@ -58,7 +58,7 @@ export const RegisterForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
 
-      <label htmlFor="email">Name</label>
+      <label htmlFor="name">Name</label>
       <input
         className={
           clsx(

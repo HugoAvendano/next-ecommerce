@@ -5,7 +5,7 @@ import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
 
-export const paypalCheckPaymet = async (paypalTransactionId: string) => {
+export const paypalCheckPayment = async (paypalTransactionId: string) => {
   const authToken = await getPayPalBearerToken();  
 
   if (!authToken) {
