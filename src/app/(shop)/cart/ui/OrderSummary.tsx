@@ -23,7 +23,7 @@ export const OrderSummary = () => {
     }
 
 
-  },[ cantItemsCart, loaded ])
+  },[ cantItemsCart, loaded, router ])
 
   if (!loaded) {
     return <p>Loading...</p>

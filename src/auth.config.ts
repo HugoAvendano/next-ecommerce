@@ -54,7 +54,7 @@ export const authConfig: NextAuthConfig  = {
           //Regresar el usuario sin paswsword
           const {password: _, ...rest} = user;
 
-          console.log({ rest });
+          
 
           return rest;
       },

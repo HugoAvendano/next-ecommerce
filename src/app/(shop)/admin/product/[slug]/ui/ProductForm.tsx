@@ -70,9 +70,8 @@ export const ProductForm = ({ product, categories }: Props) => {
 
   const onSubmit = async (data: FormInputs) => {
     
-    const { images ,...productToSave } = data;
+    const { images ,...productToSave } = data;    
     
-    console.log(productToSave);
     const formData = new FormData();
     if (product.id){
       formData.append('id', product.id)
@@ -87,8 +86,7 @@ export const ProductForm = ({ product, categories }: Props) => {
     formData.append('gender', productToSave.gender);
     formData.append('categoryId', productToSave.categoryId);
     formData.append('sizes', productToSave.sizes.toString());
-    formData.append('inStock', productToSave.inStock.toString());
-    console.log(formData);
+    formData.append('inStock', productToSave.inStock.toString());    
 
     if (images ) {
       for (let index = 0; index < images.length; index++) {

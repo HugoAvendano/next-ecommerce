@@ -14,8 +14,7 @@ export const getStockBySlug = async (slug : string) => {
       }
     });
 
-    console.log(stockProduct)
-
+    
     return stockProduct?.inStock ?? 0;
     
   } catch (error) {

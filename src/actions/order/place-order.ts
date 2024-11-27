@@ -35,7 +35,7 @@ export const placeOrder = async (productsId: productToOrder[], address: Address)
     }
   })
 
-  console.log(products);
+  
 
   // Calcular cantidad de productos de la orden
   const itemsInOrder = productsId.reduce((total, item) => total + item.quantity, 0);
@@ -117,8 +117,7 @@ export const placeOrder = async (productsId: productToOrder[], address: Address)
           }
         }
       })
-
-      console.log({ order })
+      
       // 3. Crear la direccion de entrega de la orden
 
       const orderAddress = await tx.orderAddress.create({

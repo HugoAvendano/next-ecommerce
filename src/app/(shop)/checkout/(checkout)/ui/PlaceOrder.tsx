@@ -27,20 +27,17 @@ export const PlaceOrder = () => {
   }, [])
 
   const onPlaceOrder = async () => {
-    setIsPlacingOrder(true);
+    setIsPlacingOrder(true);    
     
-    console.log(address);
 
     const productToOrder = cart.map(prod =>({
       productId: prod.id,
       quantity: prod.quantity,
       size: prod.size
-    }));
-    
-    console.log(productToOrder);
+    }));    
 
     const resp = await placeOrder(productToOrder,address);
-    console.log(resp);
+    
     if(!resp.ok){
       setIsPlacingOrder(false);
       setErrorMSg(resp.message);

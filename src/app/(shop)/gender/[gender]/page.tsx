@@ -1,56 +1,69 @@
 export const revalidate = 60; // 60 segundos
 
-import { getPaginatedProductWithImages } from "@/actions";
-import { Pagination, ProductGrid, Title } from "@/components";
-import { Category } from "@/interfaces";
-import { redirect } from "next/navigation";
+
+import { getPaginatedProductWithImages } from '@/actions';
+import { Pagination, ProductGrid, Title } from '@/components';
+
+import { Gender } from '@prisma/client';
+import { redirect } from 'next/navigation';
+
+
 
 interface Props {
-  params:{
-    gender: Category
+  params: {
+    gender: string;
   },
   searchParams: {
-    page?: string,
-    take?: string
+    page?: string; 
   }
 }
 
-const labels: Record<Category,string> = {
-  'men': 'Men',
-  'women': 'Women',
-  'kid': 'Kid',
-  'unisex': 'Unisex'
-}
 
-export default async function GenderPage( {params,searchParams}: Props ) {
-  
-  const {gender} = params;
+export default async function GenderByPage({ params, searchParams }: Props) {
 
-  /* if (!labels[gender]){
-    notFound();
-  } */
+  const { gender } = params;
 
-  const page = searchParams.page ? parseInt (searchParams.page) :  1;
+  const page = searchParams.page ? parseInt( searchParams.page ) : 1;
 
-  const { products, currentPage, totalPages } = await getPaginatedProductWithImages({page,gender});
+  const { products, currentPage, totalPages } = await getPaginatedProductWithImages({ 
+    page, 
+    gender: gender as Gender,
+  });
 
-  if ( products.length === 0 ){
+
+  if ( products.length === 0 ) {
     redirect(`/gender/${ gender }`);
   }
+  
+
+  const labels: Record<string, string>  = {
+    'men': 'para hombres',
+    'women': 'para mujeres',
+    'kid': 'para niños',
+    'unisex': 'para todos'
+  }
+
+  // if ( id === 'kids' ) {
+  //   notFound();
+  // }
 
 
   return (
     <>
-      <Title 
-        title={ `Articulos de ${labels[gender]}` }
+      <Title
+        title={`Artículos de ${ labels[gender] }`}
         subtitle="Todos los productos"
         className="mb-2"
       />
+
       <ProductGrid 
-        products={products}
+        products={ products }
       />
-      <Pagination totalPages={totalPages}/>
+
+      <Pagination totalPages={ totalPages }  />
+      
     </>
-    
   );
 }
+
+
